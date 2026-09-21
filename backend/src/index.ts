@@ -13,6 +13,7 @@ import certificateRoutes from "./routes/certificates.js";
 import planRoutes from "./routes/plans.js";
 import adminRoutes from "./routes/admin.js";
 import mobileRoutes from "./routes/mobile.js";
+import usersRoutes from "./routes/users.js";
 
 const app = express();
 const PORT = Number(process.env.PORT ?? 4000);
@@ -47,6 +48,7 @@ app.use("/api/certificates", certificateRoutes);
 app.use("/api/plans", planRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/mobile", mobileRoutes);
+app.use("/api/users", usersRoutes);
 
 // Bull Board — montado por último para não interferir nas rotas da API.
 // Protegido por basic auth própria (nunca público); 503 se não configurado.

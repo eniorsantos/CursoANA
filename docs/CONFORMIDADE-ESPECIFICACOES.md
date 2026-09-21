@@ -31,7 +31,11 @@ Legenda: ✅ Atendido · ⚠️ Parcial / divergência justificada · ❌ Não a
 - ⚠️ Divergência solicitada pelo usuário: em vez do monorepo `apps/web+admin+api` + `packages/`,
   o projeto usa pastas distintas `backend/` (Express) e `frontend/` (Next.js). Não há
   `packages/shared-types`/`ui` nem Turborepo — tipos são duplicados entre as duas pastas.
-- ❌ LGPD: sem política de privacidade, consentimento ou exclusão de conta.
+- ✅ LGPD (implementado em 22/09/2026): `termsAcceptedAt` no `User` (migration
+  `lgpd_consent`), cadastro exige `termsAccepted: true`, `GET/DELETE /api/users/me`
+  (eliminação: apaga progresso/tokens, cancela matrículas/assinaturas, anonimiza conta —
+  pagamentos mantidos por obrigação fiscal), página `/privacidade`, checkbox de consentimento
+  no cadastro e `/perfil` com zona de perigo em 2 cliques. Coberto por `tests/lgpd.test.ts`.
 
 ## 3. `painel-admin-e-autenticacao.md` — ⚠️ Parcial
 
@@ -120,8 +124,13 @@ Legenda: ✅ Atendido · ⚠️ Parcial / divergência justificada · ❌ Não a
 - ✅ Identidade visual e componentes web equivalentes: tokens, `HeroBanner`, `CourseCarousel`/`CourseCard`
   com barra de progresso, tabbar de 5 itens, telas home/detalhe/player/checkout/meus-cursos;
   API pronta para mobile: `GET /api/mobile/home` agregado e `POST /api/auth/mobile/login` (JWT).
-- ❌ Sem app Expo/React Native: sem `SecureStore`, `expo-av`, downloads offline criptografados,
-  push notifications, TanStack Query/FlashList, EAS build. Decisão pendente (MVP web primeiro).
+- ✅ App Expo MVP Fase 1 (implementado em 22/09/2026, `frontend/mobile/`): Expo Router com
+  as rotas da spec §4, login JWT em `SecureStore`, home via `GET /api/mobile/home` com TanStack
+  Query (`staleTime` 5 min), busca em `GET /api/courses?q=` (novo filtro `contains` no backend),
+  detalhe com módulos, player `expo-video` com mesma URL assinada + progresso 15 s + overlay
+  "próxima aula", checkout no navegador do sistema (`expo-web-browser`), `eas.json`
+  (development/staging/production). `tsc` limpo; não executado em emulador.
+  Fase 2 pendente: downloads offline, push, Chromecast/AirPlay, perfis múltiplos, tablet.
 
 ## 8. `spec-frontend-painel-admin.md` — ⚠️ Parcial
 
@@ -145,7 +154,7 @@ Legenda: ✅ Atendido · ⚠️ Parcial / divergência justificada · ❌ Não a
 
 ## Backlog priorizado (o que falta para conformidade total)
 
-Itens 1–9 concluídos em 22/09/2026 (18 testes passando, coverage ~49%).
+Itens 1–9 + épicos (LGPD e Expo MVP) concluídos em 22/09/2026 (21 testes passando).
 
 6. [Médio — concluído] Admin ligado à API + `sonner`/`recharts` em uso.
 7. [Médio — concluído] `dnd-kit` no editor + `VideoUploader` funcional.

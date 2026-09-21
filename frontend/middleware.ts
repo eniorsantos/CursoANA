@@ -23,7 +23,8 @@ export function middleware(req: NextRequest) {
     pathname.startsWith("/meus-cursos") ||
     pathname.startsWith("/curso/") ||
     pathname.startsWith("/player/") ||
-    pathname.startsWith("/checkout/");
+    pathname.startsWith("/checkout/") ||
+    pathname.startsWith("/perfil");
   const isAuthPage = pathname.startsWith("/login") || pathname.startsWith("/cadastro");
 
   if (isAdminRoute && (!token || (role !== "ADMIN" && role !== "INSTRUCTOR"))) {
@@ -46,5 +47,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/meus-cursos/:path*", "/curso/:path*", "/player/:path*", "/checkout/:path*", "/login", "/cadastro"],
+  matcher: ["/admin/:path*", "/meus-cursos/:path*", "/curso/:path*", "/player/:path*", "/checkout/:path*", "/perfil", "/login", "/cadastro"],
 };

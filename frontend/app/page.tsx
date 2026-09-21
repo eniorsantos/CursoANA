@@ -33,7 +33,7 @@ export default async function HomePage() {
         <Link href="/meus-cursos">⌕<br />Buscar</Link>
         <Link href="/meus-cursos">⬇<br />Downloads</Link>
         <Link href="/meus-cursos">☰<br />Minha Lista</Link>
-        <Link href="/admin">◍<br />Perfil</Link>
+        <Link href="/perfil">◍<br />Perfil</Link>
       </nav>
     </main>
   );

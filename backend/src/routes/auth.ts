@@ -11,6 +11,7 @@ const signupSchema = z.object({
   name: z.string().min(2),
   email: z.string().email(),
   password: z.string().min(8, "Mínimo de 8 caracteres"),
+  termsAccepted: z.boolean().refine((v) => v === true, "É necessário aceitar os termos e a política de privacidade"),
 });
 
 // POST /api/auth/signup
@@ -21,7 +22,7 @@ router.post("/signup", async (req, res) => {
   if (existing) return res.status(400).json({ error: { email: ["Este email já está cadastrado"] } });
   const passwordHash = await bcrypt.hash(parsed.data.password, 12);
   const user = await prisma.user.create({
-    data: { name: parsed.data.name, email: parsed.data.email, passwordHash, role: "STUDENT" },
+    data: { name: parsed.data.name, email: parsed.data.email, passwordHash, role: "STUDENT", termsAcceptedAt: new Date() },
   });
   return res.status(201).json({ success: true, token: signToken(user), user: { id: user.id, name: user.name, email: user.email, role: user.role } });
 });

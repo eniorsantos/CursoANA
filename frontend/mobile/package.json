@@ -1,0 +1,27 @@
+{
+  "name": "cursosana-mobile",
+  "version": "1.0.0",
+  "private": true,
+  "main": "expo-router/entry",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.59.0",
+    "expo": "~51.0.0",
+    "expo-linear-gradient": "^57.0.2",
+    "expo-router": "~3.5.0",
+    "expo-secure-store": "~13.0.0",
+    "expo-video": "~2.0.0",
+    "expo-web-browser": "~13.0.0",
+    "react": "18.2.0",
+    "react-native": "0.74.5"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "typescript": "^5.5.4"
+  }
+}

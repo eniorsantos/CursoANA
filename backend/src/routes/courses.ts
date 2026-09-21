@@ -12,10 +12,14 @@ const courseSchema = z.object({
   priceCents: z.coerce.number().int().min(0),
 });
 
-// GET /api/courses — catálogo público (apenas PUBLISHED)
-router.get("/", async (_req, res) => {
+// GET /api/courses — catálogo público (apenas PUBLISHED), com busca ?q=
+router.get("/", async (req, res) => {
+  const q = typeof req.query.q === "string" && req.query.q.trim() ? req.query.q.trim() : null;
   const courses = await prisma.course.findMany({
-    where: { status: "PUBLISHED" },
+    where: {
+      status: "PUBLISHED",
+      ...(q ? { title: { contains: q, mode: "insensitive" } } : {}),
+    },
     include: { instructor: { select: { name: true } }, _count: { select: { enrollments: true } } },
     orderBy: { createdAt: "desc" },
   });

@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "CursosAna",
+    "slug": "cursosana",
+    "scheme": "cursosana",
+    "plugins": ["expo-router", "expo-secure-store"],
+    "extra": {
+      "apiUrl": "http://localhost:4000"
+    }
+  }
+}
