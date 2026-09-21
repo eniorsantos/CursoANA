@@ -1,0 +1,37 @@
+name: Deploy Production
+on:
+  push:
+    branches: [main]
+jobs:
+  migrate-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+      - run: npm ci
+        working-directory: backend
+      - name: Backup do banco antes da migration
+        run: |
+          sudo apt-get update -y && sudo apt-get install -y postgresql-client
+          pg_dump "$DATABASE_URL" -F custom -f "backup-pre-deploy-${{ github.sha }}.dump"
+        env:
+          DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+      - name: Guardar backup como artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: backup-pre-deploy-${{ github.sha }}
+          path: backup-pre-deploy-${{ github.sha }}.dump
+          retention-days: 30
+      - name: Aplicar migrations em produção
+        run: npx prisma migrate deploy
+        working-directory: backend
+        env:
+          DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+      - name: Deploy frontend (Vercel)
+        run: npx vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}

@@ -1,0 +1,25 @@
+# Dependências
+node_modules/
+
+# Segredos — nunca commitar (usar .env.example como referência)
+.env
+.env.local
+.env.*.local
+backend/.env
+frontend/.env.local
+
+# Build
+.next/
+out/
+dist/
+build/
+coverage/
+
+# Arquivos gerados em runtime (PDFs de certificado, uploads)
+backend/storage/
+frontend/storage/
+
+# SO / editores
+.DS_Store
+Thumbs.db
+*.log

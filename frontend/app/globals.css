@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #1E1830;
+  --surface: #2A2340;
+  --surface-2: #352C4D;
+  --surface-3: #453A5C;
+  --accent: #9B5DE5;
+  --accent-warm: #D9B8FF;
+  --text: #F5F3F8;
+  --text-dim: #B3A9C2;
+}
+body { background: var(--bg); color: var(--text); font-family: Inter, system-ui, sans-serif; }
+.font-bebas { font-family: "Bebas Neue", sans-serif; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
