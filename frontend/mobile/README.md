@@ -11,8 +11,17 @@ App React Native com Expo Router consumindo a mesma API do backend (`frontend/mo
 - `player/[lessonId]` — `expo-video` com a mesma URL assinada HLS, progresso a cada 15 s,
   overlay "próxima aula" nos últimos 15 s
 
-## Fora do MVP (Fase 2 da spec)
-Downloads offline criptografados, push notifications, busca com sugestões,
+## Fase 2 (implementada)
+- Downloads offline: `lib/downloads.ts` — rendition MP4 via `GET /api/lessons/:id/download-url`,
+  AES (`crypto-js`, chave SHA256 de `userId:deviceId`), expiração 30 dias, `purgeExpired` a cada
+  abertura (revalida via playback-url; 403 = perdeu acesso), tela Downloads com tamanho e exclusão,
+  reprodução via `?offline=1` com limpeza do temp. Limitação: cifragem em memória (aulas curtas).
+- Push: `lib/notifications.ts` — permissão, canal Android, token registrado em
+  `POST /api/users/me/push-tokens`; backend com model `PushToken`, fila `push` dedicada, worker via
+  Expo Push API, triggers em compra (boas-vindas) e `invoice.payment_failed` (PAST_DUE).
+- Busca com sugestões: `GET /api/courses/suggest` (top-5) com dropdown que navega ao detalhe.
+
+## Futuro (fora da Fase 2)
 Chromecast/AirPlay, perfis múltiplos, modo tablet.
 
 ## Rodar

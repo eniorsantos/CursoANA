@@ -39,6 +39,26 @@ router.post("/:id/progress", requireAuth, async (req, res) => {
   res.json({ ok: true, completed });
 });
 
+// GET /api/lessons/:id/download-url — rendition estática MP4 para offline.
+// Exige acesso ativo; o app criptografa localmente e expira em 30 dias.
+router.get("/:id/download-url", requireAuth, async (req, res) => {
+  const user = (req as unknown as { user: { id: string } }).user;
+  const lesson = await prisma.lesson.findUniqueOrThrow({
+    where: { id: req.params.id },
+    include: { module: { include: { course: true } } },
+  });
+  const access = await hasAccessToCourse(user.id, lesson.module.course.id);
+  if (!access && !lesson.isFreePreview) {
+    return res.status(403).json({ error: "Sem acesso a esta aula" });
+  }
+  if (!lesson.videoAssetId) return res.status(404).json({ error: "Vídeo ainda não processado" });
+  // Static rendition MP4 do Mux (requer "Static Renditions" habilitado no asset).
+  res.json({
+    url: `https://stream.mux.com/${lesson.videoAssetId}/highest.mp4`,
+    expiresInDays: 30,
+  });
+});
+
 // POST /api/lessons/admin/:id/upload — cria upload direto (Mux). O instrutor envia
 // o arquivo direto ao Mux sem passar pelo servidor (evita sobrecarregar a API).
 router.post("/admin/:id/upload", requireAuth, requireRole(["ADMIN", "INSTRUCTOR"]), async (req, res) => {

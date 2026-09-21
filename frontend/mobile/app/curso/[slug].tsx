@@ -6,6 +6,7 @@ import { colors } from "../../lib/theme";
 import { api } from "../../lib/api";
 import { getToken } from "../../lib/auth";
 import { openCheckout } from "../../lib/checkout";
+import { DownloadButton } from "../../components/DownloadButton";
 
 type Detail = {
   id: string;
@@ -57,9 +58,12 @@ export default function CourseDetailScreen() {
           <View key={m.id} style={{ borderBottomWidth: 1, borderBottomColor: colors.border, paddingVertical: 10 }}>
             <Text style={{ color: "#fff", fontWeight: "600" }}>{m.title}</Text>
             {m.lessons.map((l) => (
-              <Pressable key={l.id} onPress={() => router.push(`/player/${l.id}`)}>
-                <Text style={{ color: colors.textSecondary, paddingVertical: 6 }}>• {l.title}</Text>
-              </Pressable>
+              <View key={l.id} style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+                <Pressable style={{ flex: 1 }} onPress={() => router.push(`/player/${l.id}`)}>
+                  <Text style={{ color: colors.textSecondary, paddingVertical: 6 }}>• {l.title}</Text>
+                </Pressable>
+                <DownloadButton lessonId={l.id} title={l.title} />
+              </View>
             ))}
           </View>
         ))}

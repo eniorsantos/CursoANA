@@ -6,3 +6,4 @@ export const connection = new IORedis(process.env.REDIS_URL!, { maxRetriesPerReq
 export const emailQueue = new Queue("email", { connection });
 export const certificateQueue = new Queue("certificate", { connection });
 export const videoQueue = new Queue("video-processing", { connection });
+export const pushQueue = new Queue("push", { connection });

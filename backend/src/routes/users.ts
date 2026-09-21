@@ -15,6 +15,21 @@ router.get("/me", async (req, res) => {
   res.json(me);
 });
 
+// POST /api/users/me/push-tokens — registra o Expo push token do device
+router.post("/me/push-tokens", async (req, res) => {
+  const user = (req as unknown as { user: { id: string } }).user;
+  const { token, platform } = req.body ?? {};
+  if (!token || typeof token !== "string" || !token.startsWith("ExponentPushToken[")) {
+    return res.status(400).json({ error: "Push token inválido" });
+  }
+  const saved = await prisma.pushToken.upsert({
+    where: { token },
+    create: { userId: user.id, token, platform: platform ?? "unknown" },
+    update: { userId: user.id },
+  });
+  res.status(201).json(saved);
+});
+
 // DELETE /api/users/me — direito de eliminação (LGPD art. 18, VI).
 // Anonimiza a conta e revoga acessos; mantém registros fiscais (pagamentos)
 // sem dados pessoais identificáveis além do necessário.

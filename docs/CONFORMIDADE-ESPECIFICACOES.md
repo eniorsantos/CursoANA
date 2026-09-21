@@ -131,6 +131,12 @@ Legenda: ✅ Atendido · ⚠️ Parcial / divergência justificada · ❌ Não a
   "próxima aula", checkout no navegador do sistema (`expo-web-browser`), `eas.json`
   (development/staging/production). `tsc` limpo; não executado em emulador.
   Fase 2 pendente: downloads offline, push, Chromecast/AirPlay, perfis múltiplos, tablet.
+  → Fase 2 implementada em 22/09/2026: downloads offline AES (`lib/downloads.ts`, rendition MP4
+  via `GET /api/lessons/:id/download-url` com checagem de acesso, expiração 30 dias,
+  `purgeExpired` por abertura, `?offline=1` no player), push end-to-end (model `PushToken`,
+  fila `push` + worker Expo Push API, triggers em compra e `invoice.payment_failed`) e busca com
+  sugestões (`GET /api/courses/suggest` top-5 + dropdown). `tsc` limpo nos 3 projetos; mobile não
+  executado em emulador. Restante futuro: Chromecast/AirPlay, perfis múltiplos, tablet.
 
 ## 8. `spec-frontend-painel-admin.md` — ⚠️ Parcial
 
@@ -154,7 +160,7 @@ Legenda: ✅ Atendido · ⚠️ Parcial / divergência justificada · ❌ Não a
 
 ## Backlog priorizado (o que falta para conformidade total)
 
-Itens 1–9 + épicos (LGPD e Expo MVP) concluídos em 22/09/2026 (21 testes passando).
+Itens 1–9 + épicos (LGPD, Expo MVP e Fase 2 mobile) concluídos em 22/09/2026 (24 testes passando).
 
 6. [Médio — concluído] Admin ligado à API + `sonner`/`recharts` em uso.
 7. [Médio — concluído] `dnd-kit` no editor + `VideoUploader` funcional.

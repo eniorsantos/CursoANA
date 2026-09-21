@@ -26,6 +26,20 @@ router.get("/", async (req, res) => {
   res.json(courses);
 });
 
+// GET /api/courses/suggest?q= — autocomplete leve para a busca mobile (top 5).
+// Declarada ANTES de /:slug para não ser capturada como slug.
+router.get("/suggest", async (req, res) => {
+  const q = typeof req.query.q === "string" ? req.query.q.trim() : "";
+  if (q.length < 2) return res.json([]);
+  const courses = await prisma.course.findMany({
+    where: { status: "PUBLISHED", title: { contains: q, mode: "insensitive" } },
+    select: { id: true, slug: true, title: true },
+    orderBy: { createdAt: "desc" },
+    take: 5,
+  });
+  res.json(courses);
+});
+
 // GET /api/courses/:slug
 router.get("/:slug", async (req, res) => {
   const course = await prisma.course.findUnique({

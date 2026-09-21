@@ -40,7 +40,7 @@ router.post("/mobile/login", async (req, res) => {
   const user = await validateCredentials(email, password);
   if (!user) return res.status(401).json({ error: "Credenciais inválidas" });
   const token = signToken(user);
-  return res.json({ token });
+  return res.json({ token, user: { id: user.id, name: user.name, email: user.email, role: user.role } });
 });
 
 // POST /api/auth/recuperar-senha — resposta idêntica exista ou não o email (anti-enumeração)

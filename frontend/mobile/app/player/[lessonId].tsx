@@ -4,12 +4,14 @@ import { useLocalSearchParams } from "expo-router";
 import { VideoView, useVideoPlayer } from "expo-video";
 import { colors } from "../../lib/theme";
 import { API_URL } from "../../lib/api";
-import { getToken } from "../../lib/auth";
+import { getToken, getUserId } from "../../lib/auth";
+import { tempPlaybackUri, clearTempPlayback } from "../../lib/downloads";
 
 // Player nativo (spec §7): mesma URL assinada HLS do backend; progresso a cada 15s;
 // overlay "próxima aula" estilo Netflix nos segundos finais.
+// Com ?offline=1, reproduz o download descriptografado (spec §8).
 export default function PlayerScreen() {
-  const { lessonId } = useLocalSearchParams<{ lessonId: string }>();
+  const { lessonId, offline } = useLocalSearchParams<{ lessonId: string; offline?: string }>();
   const [playbackUrl, setPlaybackUrl] = useState<string | null>(null);
   const [showNext, setShowNext] = useState(false);
   const player = useVideoPlayer(playbackUrl ?? "", (p) => {
@@ -18,15 +20,27 @@ export default function PlayerScreen() {
   const lastReport = useRef(0);
 
   useEffect(() => {
+    let cancelled = false;
     (async () => {
+      if (offline === "1") {
+        const userId = await getUserId();
+        if (!userId) return;
+        const uri = await tempPlaybackUri(lessonId, userId);
+        if (!cancelled) setPlaybackUrl(uri);
+        return;
+      }
       const token = await getToken();
       const res = await fetch(`${API_URL}/api/lessons/${lessonId}/playback-url`, {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
       const data = await res.json();
-      setPlaybackUrl(data.url);
+      if (!cancelled) setPlaybackUrl(data.url);
     })();
-  }, [lessonId]);
+    return () => {
+      cancelled = true;
+      if (offline === "1") void clearTempPlayback(lessonId);
+    };
+  }, [lessonId, offline]);
 
   useEffect(() => {
     const interval = setInterval(async () => {

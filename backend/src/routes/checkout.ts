@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { prisma } from "../lib/prisma.js";
 import { requireAuth } from "../middleware/auth.js";
-import { queueWelcomeEmail } from "../lib/queue.js";
+import { queueWelcomeEmail, queuePush } from "../lib/queue.js";
 
 const router = Router();
 
@@ -19,6 +19,8 @@ async function completePurchase(userId: string, courseId: string, amountCents: n
     }),
   ]);
   await queueWelcomeEmail(userId, courseId);
+  const course = await prisma.course.findUnique({ where: { id: courseId }, select: { title: true } });
+  await queuePush(userId, "Acesso liberado! 🎓", `Seu acesso ao curso ${course?.title ?? ""} já está disponível.`, { courseId });
   return payment;
 }
 

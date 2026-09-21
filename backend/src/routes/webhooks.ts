@@ -61,10 +61,22 @@ router.post("/stripe", async (req, res) => {
     }
     case "invoice.payment_failed": {
       const invoice = event.data.object as unknown as { subscription: string };
-      await prisma.subscription.updateMany({
+      const updated = await prisma.subscription.updateMany({
         where: { gatewaySubscriptionId: invoice.subscription as string },
         data: { status: "PAST_DUE" },
       });
+      if (updated.count > 0) {
+        const sub = await prisma.subscription.findFirstOrThrow({
+          where: { gatewaySubscriptionId: invoice.subscription as string },
+        });
+        const { queuePush } = await import("../lib/queue.js");
+        await queuePush(
+          sub.userId,
+          "Problema com seu pagamento",
+          "Não conseguimos renovar sua assinatura. Atualize seu cartão para manter o acesso.",
+          { planId: sub.planId }
+        );
+      }
       break;
     }
     case "customer.subscription.deleted": {

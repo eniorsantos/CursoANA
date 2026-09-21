@@ -2,6 +2,7 @@ import { Worker } from "bullmq";
 import { connection } from "../lib/queues-bullmq.js";
 import { prisma } from "../lib/prisma.js";
 import { issueCertificateIfEligible } from "../lib/certificates.js";
+import { sendPushToUser } from "../lib/push.js";
 
 export const emailWorker = new Worker(
   "email",
@@ -52,3 +53,26 @@ export const videoWorker = new Worker(
   },
   { connection, concurrency: 5 }
 );
+
+export const pushWorker = new Worker(
+  "push",
+  async (job) => {
+    const { userId, title, body, data } = job.data as {
+      userId: string;
+      title: string;
+      body: string;
+      data: Record<string, string>;
+    };
+    await sendPushToUser(userId, title, body, data);
+  },
+  { connection, concurrency: 10 }
+);
+
+pushWorker.on("failed", async (job, err) => {
+  console.error(`Push job ${job?.id} falhou:`, err.message);
+  if (job && job.attemptsMade >= (job.opts.attempts ?? 1)) {
+    await prisma.failedJob.create({
+      data: { queueName: "push", jobName: job.name, payload: JSON.stringify(job.data), error: err.message },
+    });
+  }
+});

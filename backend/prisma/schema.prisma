@@ -80,6 +80,7 @@ model User {
   certificates   Certificate[]
   subscriptions  Subscription[]
   resetTokens    PasswordResetToken[]
+  pushTokens     PushToken[]
 
   @@map("users")
 }
@@ -282,4 +283,16 @@ model FailedJob {
   resolved  Boolean  @default(false)
 
   @@map("failed_jobs")
+}
+
+model PushToken {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token     String   @unique // Expo push token (ExponentPushToken[...])
+  platform  String   @default("unknown") // ios | android
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([userId])
+  @@map("push_tokens")
 }

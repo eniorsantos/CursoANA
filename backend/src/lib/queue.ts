@@ -10,8 +10,12 @@ async function add(queue: string, name: string, data: unknown, opts?: Record<str
     console.log(`[queue:${queue}] job enfileirado (memória): ${name}`);
     return { id: `mem-${memoryJobs.length}` };
   }
-  const { emailQueue, certificateQueue, videoQueue } = await import("./queues-bullmq.js");
-  const q = queue === "email" ? emailQueue : queue === "certificate" ? certificateQueue : videoQueue;
+  const { emailQueue, certificateQueue, videoQueue, pushQueue } = await import("./queues-bullmq.js");
+  const q =
+    queue === "email" ? emailQueue
+    : queue === "certificate" ? certificateQueue
+    : queue === "push" ? pushQueue
+    : videoQueue;
   return q.add(name, data, opts);
 }
 
@@ -35,4 +39,12 @@ export async function queueCertificateCheck(userId: string, courseId: string) {
 
 export async function queueMuxEvent(event: unknown) {
   return add("video-processing", "mux-event", event, { attempts: 5 });
+}
+
+export async function queuePush(userId: string, title: string, body: string, data?: Record<string, string>) {
+  return add("push", "send-push", { userId, title, body, data: data ?? {} }, {
+    attempts: 5,
+    backoff: { type: "exponential", delay: 5000 },
+    removeOnComplete: true,
+  });
 }

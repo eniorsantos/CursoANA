@@ -6,6 +6,7 @@ export async function truncateAll() {
   const tables = [
     "failed_jobs",
     "password_reset_tokens",
+    "push_tokens",
     "lesson_progress",
     "certificates",
     "enrollments",
