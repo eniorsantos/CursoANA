@@ -2,6 +2,9 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { prisma } from "./prisma.js";
 
+if (process.env.NODE_ENV === "production" && !process.env.JWT_SECRET) {
+  throw new Error("JWT_SECRET é obrigatório em produção");
+}
 const JWT_SECRET = process.env.JWT_SECRET ?? "dev-secret";
 const JWT_EXPIRES = "30d";
 

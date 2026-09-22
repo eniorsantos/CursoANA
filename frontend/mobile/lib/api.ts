@@ -1,4 +1,7 @@
-export const API_URL = process.env.EXPO_PUBLIC_API_URL ?? "http://localhost:4000";
+import Constants from "expo-constants";
+
+const extraUrl = (Constants.expoConfig?.extra as { apiUrl?: string } | undefined)?.apiUrl;
+export const API_URL = process.env.EXPO_PUBLIC_API_URL ?? extraUrl ?? "http://localhost:4000";
 
 export type ApiCourse = {
   id: string;

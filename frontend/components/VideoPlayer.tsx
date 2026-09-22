@@ -5,15 +5,19 @@ import { API_URL } from "@/lib/api";
 export function VideoPlayer({ lessonId }: { lessonId: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [url, setUrl] = useState<string | null>(null);
+  const [failed, setFailed] = useState(false);
 
   useEffect(() => {
     const token = typeof window !== "undefined" ? localStorage.getItem("auth_token") : null;
     fetch(`${API_URL}/api/lessons/${lessonId}/playback-url`, {
       headers: token ? { Authorization: `Bearer ${token}` } : {},
     })
-      .then((r) => r.json())
-      .then((d) => setUrl(d.url))
-      .catch(() => setUrl(null));
+      .then((r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      })
+      .then((d) => (d.url ? setUrl(d.url) : setFailed(true)))
+      .catch(() => setFailed(true));
   }, [lessonId]);
 
   useEffect(() => {
@@ -30,6 +34,7 @@ export function VideoPlayer({ lessonId }: { lessonId: string }) {
     return () => clearInterval(interval);
   }, [lessonId]);
 
+  if (failed) return <div className="aspect-video bg-black rounded-lg flex items-center justify-center text-sm text-[#B3A9C2] p-6 text-center">Vídeo indisponível — verifique seu acesso ou tente mais tarde.</div>;
   if (!url) return <div className="aspect-video bg-black rounded-lg flex items-center justify-center text-sm text-[#B3A9C2]">Carregando vídeo…</div>;
 
   return (

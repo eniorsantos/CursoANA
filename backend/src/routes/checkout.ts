@@ -61,7 +61,7 @@ router.post("/stripe/subscription", requireAuth, async (req, res) => {
     line_items: [{ price: plan.stripePriceId, quantity: 1 }],
     metadata: { userId: user.id, planId: plan.id },
     success_url: `${process.env.APP_URL}/checkout/sucesso`,
-    cancel_url: `${process.env.APP_URL}/planos`,
+    cancel_url: `${process.env.APP_URL}/meus-cursos`,
   });
   res.json({ url: session.url });
 });
@@ -83,7 +83,7 @@ router.post("/mercadopago", requireAuth, async (req, res) => {
       payer: { email: user.email },
       metadata: { userId: user.id, courseId: course.id },
       back_urls: { success: `${process.env.APP_URL}/checkout/sucesso`, failure: `${process.env.APP_URL}/curso/${course.slug}` },
-      notification_url: `${process.env.APP_URL}/api/webhooks/mercadopago`,
+      notification_url: `${process.env.BACKEND_URL ?? "http://localhost:4000"}/api/webhooks/mercadopago`,
     },
   });
   res.json({ url: preference.init_point });

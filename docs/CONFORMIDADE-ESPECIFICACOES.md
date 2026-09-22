@@ -143,6 +143,13 @@ Legenda: ✅ Atendido · ⚠️ Parcial / divergência justificada · ❌ Não a
 - ✅ Paleta admin (`#FAFAF9`, acento `#6D4FC7`), sidebar com filtro por `role`,
   layout topbar+sidebar, dashboard/alunos/financeiro/planos, editor com abas.
 - ✅ Telas ligadas à API (implementado em 22/09/2026): novo endpoint `GET /api/admin/courses`
+- ✅ Varredura de consistência (22/09/2026, 24/24 testes + `tsc` nos 3 projetos + build web):
+  corrigidos `notification_url` do MP (apontava ao frontend; agora `BACKEND_URL`),
+  `cancel_url` da assinatura (`/planos` inexistente → `/meus-cursos`), `JWT_SECRET` obrigatório
+  em produção (antes caía para `dev-secret`), checkout web com erro tratado (antes navegava para
+  `undefined`), `API_URL` mobile com fallback ao `extra.apiUrl` do `app.json`, e modo degradado
+  honesto (banner de prévia + estado de erro no player em vez de loading eterno).
+  Flake conhecido: timeout de hook sob carga de CPU paralela (re-run isolado passa).
   (filtrado por papel, com `_count` de matrículas/módulos), helper server-side `lib/admin-api.ts`
   (repassa o JWT do cookie como Bearer), dashboard com `StatCard` + gráfico `RevenueChart` (recharts)
   + top cursos, tabelas de cursos/alunos/financeiro/planos com dados reais, `EmptyState` com ação

@@ -10,6 +10,7 @@ async function getCourse(slug: string) {
   } catch {
     return {
       title: "Node.js na Prática", slug, description: "Construa APIs robustas do zero, com autenticação, filas e testes automatizados. Inclui certificado de conclusão.",
+      unavailable: true,
       modules: [
         { id: "m1", title: "Módulo 1 — Fundamentos", lessons: [{ id: "l1", title: "Configurando o ambiente" }, { id: "l2", title: "Primeiro servidor HTTP" }] },
         { id: "m2", title: "Módulo 2 — Banco de Dados", lessons: [] },
@@ -28,6 +29,9 @@ export default async function CourseDetail({ params }: { params: { slug: string 
         <h1 className="font-bebas text-3xl">{course.title}</h1>
       </div>
       <div className="p-5">
+        {course.unavailable && (
+          <p className="text-[11px] text-[#B3A9C2] bg-[#2A2340] border border-[#453A5C] rounded p-2 mb-3">Backend fora do ar — exibindo prévia estática.</p>
+        )}
         <div className="flex gap-2 text-[11px] text-[#B3A9C2] mb-2"><span>2024</span><span>·</span><span>{course.modules?.length ?? 3} módulos</span><span>·</span><span>Intermediário</span></div>
         <p className="text-xs text-[#B3A9C2] leading-relaxed mb-4">{course.description}</p>
         {firstLesson ? (

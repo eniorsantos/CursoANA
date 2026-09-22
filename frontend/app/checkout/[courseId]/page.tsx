@@ -4,13 +4,19 @@ import { API_URL } from "@/lib/api";
 
 export default function CheckoutPage({ params }: { params: { courseId: string } }) {
   const [url, setUrl] = useState("");
+  const [error, setError] = useState("");
   async function checkout(gateway: "stripe" | "mercadopago") {
+    setError("");
     const token = localStorage.getItem("auth_token");
     const res = await fetch(`${API_URL}/api/checkout/${gateway}`, {
       method: "POST", headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}) },
       body: JSON.stringify({ courseId: params.courseId }),
     });
-    const data = await res.json();
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.url) {
+      setError(typeof data.error === "string" ? data.error : "Não foi possível iniciar o checkout");
+      return;
+    }
     setUrl(data.url);
     window.location.href = data.url;
   }
@@ -22,6 +28,7 @@ export default function CheckoutPage({ params }: { params: { courseId: string } 
         <button onClick={() => checkout("stripe")} className="w-full bg-white text-black font-bold text-sm p-3 rounded">Pagar com cartão (Stripe)</button>
         <button onClick={() => checkout("mercadopago")} className="w-full bg-[#9B5DE5] text-white font-bold text-sm p-3 rounded">Pagar com Pix/Boleto (MP)</button>
       </div>
+      {error && <p className="text-xs text-red-400">{error}</p>}
       {url && <p className="text-[11px] mt-3 break-all">{url}</p>}
     </main>
   );
