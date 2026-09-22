@@ -20,7 +20,7 @@ export default function CheckoutPage({ params }: { params: { courseId: string } 
       <p className="text-xs text-[#B3A9C2] mb-4">O acesso é liberado via webhook do gateway — nunca só pela tela de sucesso.</p>
       <div className="space-y-2">
         <button onClick={() => checkout("stripe")} className="w-full bg-white text-black font-bold text-sm p-3 rounded">Pagar com cartão (Stripe)</button>
-        <button onClick={() => checkout("mercadopago")} className="w-full bg-[#00B1EA] font-bold text-sm p-3 rounded">Pagar com Pix/Boleto (MP)</button>
+        <button onClick={() => checkout("mercadopago")} className="w-full bg-[#9B5DE5] text-white font-bold text-sm p-3 rounded">Pagar com Pix/Boleto (MP)</button>
       </div>
       {url && <p className="text-[11px] mt-3 break-all">{url}</p>}
     </main>

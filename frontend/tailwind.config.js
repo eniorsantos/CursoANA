@@ -5,7 +5,7 @@ module.exports = {
     extend: {
       colors: {
         stream: { bg: "#1E1830", surface: "#2A2340", surface2: "#352C4D", surface3: "#453A5C", accent: "#9B5DE5", warm: "#D9B8FF", dim: "#B3A9C2" },
-        admin: { bg: "#FAFAF9", muted: "#F2F1EF", border: "#E5E3E0", accent: "#6D4FC7", accentMuted: "#EDE9FB" },
+        admin: { bg: "#1E1830", muted: "#352C4D", border: "#453A5C", accent: "#9B5DE5", accentMuted: "#352C4D" },
       },
       fontFamily: { bebas: ['"Bebas Neue"', "sans-serif"], inter: ["Inter", "sans-serif"] },
     },

@@ -23,7 +23,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }
 
   return (
-    <div className="flex h-screen bg-[#FAFAF9] text-[#18181B]">
+    <div className="flex h-screen bg-[#1E1830] text-[#F5F3F8]">
       <AdminSidebar role={role} />
       <div className="flex-1 flex flex-col overflow-hidden">
         <AdminTopbar userName={role === "ADMIN" ? "Admin" : "Instrutor"} />

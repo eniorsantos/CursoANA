@@ -148,9 +148,12 @@ Legenda: ✅ Atendido · ⚠️ Parcial / divergência justificada · ❌ Não a
   + top cursos, tabelas de cursos/alunos/financeiro/planos com dados reais, `EmptyState` com ação
   direta em toda lista, `Toaster` + `toast` (sonner) no layout e nas ações (criar/publicar), e
   `CourseActions` com publicar inline. Coberto por `tests/admin-courses.test.ts`.
-- ⚠️ Restante da spec: sem shadcn, TanStack Table, react-hook-form, Tiptap, `ConfirmDeleteDialog`
-  (exclusão com digitação do nome), `handleAction` único ou drawer mobile — tabelas são HTML
-  simples e exclusão de curso ainda não tem tela.
+- ✅ Paleta do mockup em todo o frontend (unificado em 22/09/2026 por decisão do usuário):
+  todas as telas — vitrine, auth, aluno e **admin** — usam os tokens exatos do mockup
+  (`#1E1830` bg, `#2A2340` cards, `#352C4D` muted, `#453A5C` borders, `#9B5DE5` accent,
+  `#D9B8FF` warm, `#F5F3F8`/`#B3A9C2` textos) e fontes Bebas Neue (títulos) + Inter (texto),
+  com `color-scheme: dark` e inputs/placeholders/tooltip do Recharts adaptados.
+  Divergência consciente da spec `08` (que previa admin claro): prevaleceu a identidade única.
 
 ## 9. `mockup-telas-app.html` — ✅ Atendido (alto)
 

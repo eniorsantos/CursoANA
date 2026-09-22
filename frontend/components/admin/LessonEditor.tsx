@@ -47,17 +47,17 @@ export function LessonEditor({ lesson: initial }: { lesson: Lesson }) {
   return (
     <div className="max-w-2xl space-y-6">
       <div>
-        <label className="text-xs text-[#6B6862]">Título da aula</label>
+        <label className="text-xs text-[#B3A9C2]">Título da aula</label>
         <div className="flex gap-2 mt-1">
           <input
-            className="flex-1 border border-[#E5E3E0] rounded p-2 text-sm"
+            className="flex-1 border border-[#453A5C] rounded p-2 text-sm"
             value={lesson.title}
             onChange={(e) => setLesson({ ...lesson, title: e.target.value })}
           />
           <button
             disabled={saving}
             onClick={() => { void patch({ title: lesson.title }, "Título salvo"); router.refresh(); }}
-            className="bg-[#6D4FC7] text-white text-sm px-4 py-2 rounded disabled:opacity-50"
+            className="bg-[#9B5DE5] text-white text-sm px-4 py-2 rounded disabled:opacity-50"
           >
             Salvar
           </button>
@@ -65,14 +65,14 @@ export function LessonEditor({ lesson: initial }: { lesson: Lesson }) {
       </div>
 
       <div>
-        <label className="text-xs text-[#6B6862]">Vídeo</label>
+        <label className="text-xs text-[#B3A9C2]">Vídeo</label>
         <div className="mt-1">
           <VideoUploader key={lesson.videoAssetId ?? "none"} lessonId={lesson.id} />
-          {lesson.videoAssetId && <p className="text-[11px] text-[#6B6862] mt-1">Asset atual: {lesson.videoAssetId}</p>}
+          {lesson.videoAssetId && <p className="text-[11px] text-[#B3A9C2] mt-1">Asset atual: {lesson.videoAssetId}</p>}
         </div>
       </div>
 
-      <label className="flex items-center gap-2 text-sm bg-white border border-[#E5E3E0] rounded-lg p-4 cursor-pointer">
+      <label className="flex items-center gap-2 text-sm bg-[#2A2340] border border-[#453A5C] rounded-lg p-4 cursor-pointer">
         <input
           type="checkbox"
           checked={lesson.isFreePreview}

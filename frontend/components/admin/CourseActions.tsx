@@ -33,9 +33,9 @@ export function CourseActions({ course }: { course: { id: string; status: string
 
   return (
     <span className="flex gap-3">
-      <Link href={`/admin/cursos/${course.id}`} className="text-[#6D4FC7]">Editar</Link>
+      <Link href={`/admin/cursos/${course.id}`} className="text-[#D9B8FF]">Editar</Link>
       {course.status === "DRAFT" && (
-        <button onClick={publish} disabled={loading} className="text-[#6D4FC7] disabled:opacity-50">
+        <button onClick={publish} disabled={loading} className="text-[#D9B8FF] disabled:opacity-50">
           {loading ? "Publicando…" : "Publicar"}
         </button>
       )}

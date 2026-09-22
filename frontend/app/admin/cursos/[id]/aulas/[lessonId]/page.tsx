@@ -19,7 +19,7 @@ export default async function LessonEditorPage({ params }: { params: { id: strin
       <EmptyState
         title="Aula não encontrada"
         description="Ela pode ter sido excluída ou você não tem permissão sobre ela."
-        action={<Link href={`/admin/cursos/${params.id}`} className="text-sm text-[#6D4FC7]">← Voltar ao curso</Link>}
+        action={<Link href={`/admin/cursos/${params.id}`} className="text-sm text-[#D9B8FF]">← Voltar ao curso</Link>}
       />
     );
   }
@@ -27,9 +27,9 @@ export default async function LessonEditorPage({ params }: { params: { id: strin
   return (
     <div>
       <div className="flex items-center gap-3 mb-1">
-        <Link href={`/admin/cursos/${params.id}`} className="text-sm text-[#6B6862]">← {lesson.courseTitle}</Link>
+        <Link href={`/admin/cursos/${params.id}`} className="text-sm text-[#B3A9C2]">← {lesson.courseTitle}</Link>
       </div>
-      <h1 className="text-xl font-bold mb-4">{lesson.title}</h1>
+      <h1 className="font-bebas text-3xl tracking-wide mb-4">{lesson.title}</h1>
       <LessonEditor lesson={lesson} />
     </div>
   );

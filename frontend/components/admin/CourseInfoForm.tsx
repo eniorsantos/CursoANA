@@ -28,20 +28,20 @@ export function CourseInfoForm({ course }: { course: { id: string; title: string
   }
 
   return (
-    <form onSubmit={onSubmit} className="space-y-4 max-w-xl bg-white border border-[#E5E3E0] rounded-lg p-5">
+    <form onSubmit={onSubmit} className="space-y-4 max-w-xl bg-[#2A2340] border border-[#453A5C] rounded-lg p-5">
       <div>
-        <label className="text-xs text-[#6B6862]">Título</label>
-        <input className="w-full border border-[#E5E3E0] rounded p-2 text-sm mt-1" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} />
+        <label className="text-xs text-[#B3A9C2]">Título</label>
+        <input className="w-full border border-[#453A5C] rounded p-2 text-sm mt-1" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} />
       </div>
       <div>
-        <label className="text-xs text-[#6B6862]">Descrição</label>
-        <textarea className="w-full border border-[#E5E3E0] rounded p-2 text-sm mt-1" rows={4} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
+        <label className="text-xs text-[#B3A9C2]">Descrição</label>
+        <textarea className="w-full border border-[#453A5C] rounded p-2 text-sm mt-1" rows={4} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
       </div>
       <div>
-        <label className="text-xs text-[#6B6862]">Preço (centavos)</label>
-        <input className="w-full border border-[#E5E3E0] rounded p-2 text-sm mt-1" value={form.priceCents} onChange={(e) => setForm({ ...form, priceCents: e.target.value })} />
+        <label className="text-xs text-[#B3A9C2]">Preço (centavos)</label>
+        <input className="w-full border border-[#453A5C] rounded p-2 text-sm mt-1" value={form.priceCents} onChange={(e) => setForm({ ...form, priceCents: e.target.value })} />
       </div>
-      <button disabled={saving} className="bg-[#6D4FC7] text-white text-sm px-4 py-2 rounded disabled:opacity-50">
+      <button disabled={saving} className="bg-[#9B5DE5] text-white text-sm px-4 py-2 rounded disabled:opacity-50">
         {saving ? "Salvando…" : "Salvar alterações"}
       </button>
     </form>

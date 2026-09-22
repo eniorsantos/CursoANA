@@ -40,9 +40,9 @@ async function apiCall(path: string, init?: RequestInit) {
 }
 
 function VideoStatusBadge({ lesson }: { lesson: EditorLesson }) {
-  if (lesson.type !== "VIDEO") return <span className="text-[11px] text-[#6B6862]">Texto/Quiz</span>;
-  if (!lesson.videoAssetId) return <span className="text-[11px] px-2 py-0.5 rounded border border-[#E5E3E0] text-[#6B6862]">Sem vídeo</span>;
-  return <span className="text-[11px] px-2 py-0.5 rounded bg-green-100 text-green-800">Vídeo anexado</span>;
+  if (lesson.type !== "VIDEO") return <span className="text-[11px] text-[#B3A9C2]">Texto/Quiz</span>;
+  if (!lesson.videoAssetId) return <span className="text-[11px] px-2 py-0.5 rounded border border-[#453A5C] text-[#B3A9C2]">Sem vídeo</span>;
+  return <span className="text-[11px] px-2 py-0.5 rounded bg-[#352C4D] text-green-400">Vídeo anexado</span>;
 }
 
 function SortableModule({
@@ -106,36 +106,36 @@ function SortableModule({
   }
 
   return (
-    <div ref={setNodeRef} style={{ transform: CSS.Transform.toString(transform), transition }} className="border border-[#E5E3E0] rounded-lg bg-white overflow-hidden">
-      <div className="flex items-center gap-2 p-3 bg-[#F2F1EF]">
-        <span {...attributes} {...listeners} className="cursor-grab text-[#6B6862] select-none" title="Arrastar para reordenar">⠿</span>
+    <div ref={setNodeRef} style={{ transform: CSS.Transform.toString(transform), transition }} className="border border-[#453A5C] rounded-lg bg-[#2A2340] overflow-hidden">
+      <div className="flex items-center gap-2 p-3 bg-[#352C4D]">
+        <span {...attributes} {...listeners} className="cursor-grab text-[#B3A9C2] select-none" title="Arrastar para reordenar">⠿</span>
         {editing ? (
           <span className="flex gap-2 flex-1">
             <input className="flex-1 border rounded px-2 py-1 text-sm" value={title} onChange={(e) => setTitle(e.target.value)} />
-            <button onClick={saveTitle} className="text-xs text-[#6D4FC7] font-medium">Salvar</button>
+            <button onClick={saveTitle} className="text-xs text-[#D9B8FF] font-medium">Salvar</button>
           </span>
         ) : (
           <button onClick={() => { setTitle(module.title); setEditing(true); }} className="font-medium text-sm text-left flex-1" title="Clique para renomear">
             {module.title}
           </button>
         )}
-        <span className="text-xs text-[#6B6862]">{module.lessons.length} aulas</span>
-        <button onClick={deleteModule} className="text-xs text-red-700" title="Excluir módulo">Excluir</button>
+        <span className="text-xs text-[#B3A9C2]">{module.lessons.length} aulas</span>
+        <button onClick={deleteModule} className="text-xs text-red-400" title="Excluir módulo">Excluir</button>
       </div>
       <div className="p-2">
         {module.lessons.map((lesson) => (
-          <div key={lesson.id} className="flex items-center gap-2 p-2 rounded hover:bg-[#F2F1EF] text-sm">
-            <span className="text-[#6B6862]">≡</span>
+          <div key={lesson.id} className="flex items-center gap-2 p-2 rounded hover:bg-[#352C4D] text-sm">
+            <span className="text-[#B3A9C2]">≡</span>
             <Link href={`/admin/cursos/${courseId}/aulas/${lesson.id}`} className="flex-1 truncate" title="Abrir editor da aula">
               {lesson.title}
             </Link>
-            {lesson.isFreePreview && <span className="text-[11px] px-2 py-0.5 rounded bg-[#EDE9FB] text-[#6D4FC7]">Gratuita</span>}
+            {lesson.isFreePreview && <span className="text-[11px] px-2 py-0.5 rounded bg-[#352C4D] text-[#D9B8FF]">Gratuita</span>}
             <VideoStatusBadge lesson={lesson} />
-            <button onClick={() => { router.push(`/admin/cursos/${courseId}/aulas/${lesson.id}`); }} className="text-xs text-[#6D4FC7]">Editar</button>
-            <button onClick={() => deleteLesson(lesson)} className="text-xs text-red-700">✕</button>
+            <button onClick={() => { router.push(`/admin/cursos/${courseId}/aulas/${lesson.id}`); }} className="text-xs text-[#D9B8FF]">Editar</button>
+            <button onClick={() => deleteLesson(lesson)} className="text-xs text-red-400">✕</button>
           </div>
         ))}
-        <button className="text-xs text-[#6D4FC7] p-2" onClick={addLesson}>+ Adicionar aula</button>
+        <button className="text-xs text-[#D9B8FF] p-2" onClick={addLesson}>+ Adicionar aula</button>
       </div>
     </div>
   );
@@ -185,8 +185,8 @@ export function CurriculumBuilder({ courseId, initialModules }: { courseId: stri
           ))}
         </SortableContext>
       </DndContext>
-      {modules.length === 0 && <p className="text-sm text-[#6B6862]">Nenhum módulo ainda — o curso só pode ser publicado com ao menos um.</p>}
-      <button onClick={addModule} className="border border-[#E5E3E0] bg-white rounded-md px-4 py-2 text-sm text-[#6D4FC7]">
+      {modules.length === 0 && <p className="text-sm text-[#B3A9C2]">Nenhum módulo ainda — o curso só pode ser publicado com ao menos um.</p>}
+      <button onClick={addModule} className="border border-[#453A5C] bg-[#2A2340] rounded-md px-4 py-2 text-sm text-[#D9B8FF]">
         + Adicionar módulo
       </button>
     </div>

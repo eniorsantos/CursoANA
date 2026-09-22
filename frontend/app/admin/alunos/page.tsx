@@ -14,24 +14,24 @@ export default async function AlunosPage() {
 
   return (
     <div>
-      <h1 className="text-xl font-bold mb-4">Alunos</h1>
+      <h1 className="font-bebas text-3xl tracking-wide mb-4">Alunos</h1>
       {!enrollments || enrollments.length === 0 ? (
         <EmptyState
           title="Nenhuma matrícula ainda"
           description="As matrículas aparecem aqui assim que o webhook do gateway confirmar um pagamento."
         />
       ) : (
-        <table className="w-full text-sm bg-white border border-[#E5E3E0] rounded-lg overflow-hidden">
-          <thead className="bg-[#F2F1EF]">
-            <tr>{["Aluno", "Email", "Curso", "Status", "Data"].map((h) => (<th key={h} className="text-left px-4 py-3 text-[#6B6862]">{h}</th>))}</tr>
+        <table className="w-full text-sm bg-[#2A2340] border border-[#453A5C] rounded-lg overflow-hidden">
+          <thead className="bg-[#352C4D]">
+            <tr>{["Aluno", "Email", "Curso", "Status", "Data"].map((h) => (<th key={h} className="text-left px-4 py-3 text-[#B3A9C2]">{h}</th>))}</tr>
           </thead>
           <tbody>
             {enrollments.map((e) => (
-              <tr key={e.id} className="border-t border-[#E5E3E0]">
+              <tr key={e.id} className="border-t border-[#453A5C]">
                 <td className="px-4 py-3 font-medium">{e.user.name}</td>
-                <td className="px-4 py-3 text-[#6B6862]">{e.user.email}</td>
+                <td className="px-4 py-3 text-[#B3A9C2]">{e.user.email}</td>
                 <td className="px-4 py-3">{e.course.title}</td>
-                <td className={`px-4 py-3 ${e.status === "ACTIVE" ? "text-green-700" : "text-[#6B6862]"}`}>{e.status}</td>
+                <td className={`px-4 py-3 ${e.status === "ACTIVE" ? "text-green-400" : "text-[#B3A9C2]"}`}>{e.status}</td>
                 <td className="px-4 py-3">{new Date(e.enrolledAt).toLocaleDateString("pt-BR")}</td>
               </tr>
             ))}

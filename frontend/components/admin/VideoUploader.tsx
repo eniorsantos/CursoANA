@@ -63,13 +63,13 @@ export function VideoUploader({ lessonId }: { lessonId: string }) {
   }
 
   return (
-    <div className="border-2 border-dashed border-[#E5E3E0] rounded-lg p-6 text-center bg-white">
+    <div className="border-2 border-dashed border-[#453A5C] rounded-lg p-6 text-center bg-[#2A2340]">
       {status === "idle" && <input type="file" accept="video/*" onChange={handleFileChange} className="text-sm" />}
       {status === "uploading" && <p className="text-sm">Enviando… {progress}%</p>}
       {status === "processing" && <p className="text-sm">Vídeo enviado! Processando (pode levar alguns minutos)…</p>}
-      {status === "ready" && <p className="text-sm text-green-700">✓ Vídeo pronto</p>}
+      {status === "ready" && <p className="text-sm text-green-400">✓ Vídeo pronto</p>}
       {status === "mocked" && (
-        <p className="text-sm text-[#6B6862]">Mux não configurado (sem MUX_TOKEN_ID) — configure as credenciais para upload real.</p>
+        <p className="text-sm text-[#B3A9C2]">Mux não configurado (sem MUX_TOKEN_ID) — configure as credenciais para upload real.</p>
       )}
     </div>
   );

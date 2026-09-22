@@ -15,7 +15,7 @@ export default async function PlanosPage() {
 
   return (
     <div>
-      <h1 className="text-xl font-bold mb-4">Planos de assinatura</h1>
+      <h1 className="font-bebas text-3xl tracking-wide mb-4">Planos de assinatura</h1>
       {!plans || plans.length === 0 ? (
         <EmptyState
           title="Nenhum plano criado ainda"
@@ -24,9 +24,9 @@ export default async function PlanosPage() {
       ) : (
         <div className="grid gap-4 md:grid-cols-2">
           {plans.map((p) => (
-            <div key={p.id} className="bg-white border border-[#E5E3E0] rounded-lg p-5">
+            <div key={p.id} className="bg-[#2A2340] border border-[#453A5C] rounded-lg p-5">
               <div className="font-semibold">{p.name} — {formatCurrency(p.priceCents)}/{p.interval === "MONTHLY" ? "mês" : "ano"}</div>
-              <p className="text-xs text-[#6B6862] mt-1">{p.isAllCourses ? "Acesso a todos os cursos." : "Acesso a um subconjunto de cursos."}</p>
+              <p className="text-xs text-[#B3A9C2] mt-1">{p.isAllCourses ? "Acesso a todos os cursos." : "Acesso a um subconjunto de cursos."}</p>
             </div>
           ))}
         </div>

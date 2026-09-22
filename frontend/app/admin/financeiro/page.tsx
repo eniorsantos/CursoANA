@@ -40,30 +40,30 @@ export default async function FinanceiroPage() {
           ["MRR", formatCurrency(data.mrrCents)],
           ["Churn", `${String(data.churnRate).replace(".", ",")}%`],
         ].map(([l, v]) => (
-          <div key={l} className="bg-white border border-[#E5E3E0] rounded-lg p-4">
-            <div className="text-xs text-[#6B6862]">{l}</div>
+          <div key={l} className="bg-[#2A2340] border border-[#453A5C] rounded-lg p-4">
+            <div className="text-xs text-[#B3A9C2]">{l}</div>
             <div className="text-xl font-bold">{v}</div>
           </div>
         ))}
       </div>
-      <div className="bg-white border border-[#E5E3E0] rounded-lg overflow-hidden">
+      <div className="bg-[#2A2340] border border-[#453A5C] rounded-lg overflow-hidden">
         <div className="text-sm font-semibold p-4 pb-0">Pagamentos recentes</div>
         {data.recentPayments.length === 0 ? (
-          <p className="text-xs text-[#6B6862] p-4">Nenhum pagamento registrado.</p>
+          <p className="text-xs text-[#B3A9C2] p-4">Nenhum pagamento registrado.</p>
         ) : (
           <table className="w-full text-sm mt-2">
-            <thead className="bg-[#F2F1EF]">
-              <tr>{["Aluno", "Curso", "Valor", "Gateway", "Método", "Status"].map((h) => (<th key={h} className="text-left px-4 py-3 font-medium text-[#6B6862]">{h}</th>))}</tr>
+            <thead className="bg-[#352C4D]">
+              <tr>{["Aluno", "Curso", "Valor", "Gateway", "Método", "Status"].map((h) => (<th key={h} className="text-left px-4 py-3 font-medium text-[#B3A9C2]">{h}</th>))}</tr>
             </thead>
             <tbody>
               {data.recentPayments.map((p) => (
-                <tr key={p.id} className="border-t border-[#E5E3E0]">
+                <tr key={p.id} className="border-t border-[#453A5C]">
                   <td className="px-4 py-3">{p.user.name}</td>
                   <td className="px-4 py-3">{p.course.title}</td>
                   <td className="px-4 py-3">{formatCurrency(p.amountCents)}</td>
                   <td className="px-4 py-3">{p.gateway === "MERCADO_PAGO" ? "Mercado Pago" : "Stripe"}</td>
                   <td className="px-4 py-3">{p.method}</td>
-                  <td className={`px-4 py-3 ${p.status === "PAID" ? "text-green-700" : ""}`}>{p.status}</td>
+                  <td className={`px-4 py-3 ${p.status === "PAID" ? "text-green-400" : ""}`}>{p.status}</td>
                 </tr>
               ))}
             </tbody>

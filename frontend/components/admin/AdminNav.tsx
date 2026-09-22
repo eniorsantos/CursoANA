@@ -14,15 +14,15 @@ export function AdminSidebar({ role = "ADMIN" }: { role?: string }) {
   const pathname = usePathname();
   const items = NAV.filter((i) => i.roles.includes(role));
   return (
-    <aside className="w-60 border-r border-[#E5E3E0] bg-white hidden md:flex flex-col">
-      <div className="p-4 font-bold text-lg text-[#18181B]">Painel</div>
+    <aside className="w-60 border-r border-[#453A5C] bg-[#2A2340] hidden md:flex flex-col">
+      <div className="p-4 font-bebas text-2xl tracking-wide text-[#F5F3F8]">Painel</div>
       <nav className="flex-1 px-2">
         {items.map((item) => (
           <Link
             key={item.href}
             href={item.href}
             className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm mb-1 ${
-              pathname === item.href ? "bg-[#EDE9FB] text-[#6D4FC7] font-medium" : "text-[#6B6862]"
+              pathname === item.href ? "bg-[#352C4D] text-[#D9B8FF] font-medium" : "text-[#B3A9C2]"
             }`}
           >
             {item.label}
@@ -35,9 +35,9 @@ export function AdminSidebar({ role = "ADMIN" }: { role?: string }) {
 
 export function AdminTopbar({ userName = "Admin" }: { userName?: string }) {
   return (
-    <header className="h-14 border-b border-[#E5E3E0] bg-white flex items-center justify-between px-6">
-      <input placeholder="Busca global…" className="border border-[#E5E3E0] rounded-md px-3 py-1.5 text-sm w-64" />
-      <div className="flex items-center gap-3 text-sm text-[#18181B]">
+    <header className="h-14 border-b border-[#453A5C] bg-[#2A2340] flex items-center justify-between px-6">
+      <input placeholder="Busca global…" className="border border-[#453A5C] bg-[#1E1830] text-[#F5F3F8] placeholder:text-[#B3A9C2] rounded-md px-3 py-1.5 text-sm w-64" />
+      <div className="flex items-center gap-3 text-sm text-[#F5F3F8]">
         <span>🔔</span>
         <span className="font-medium">{userName}</span>
       </div>

@@ -11,8 +11,15 @@
   --accent-warm: #D9B8FF;
   --text: #F5F3F8;
   --text-dim: #B3A9C2;
+  --border: #453A5C;
 }
-body { background: var(--bg); color: var(--text); font-family: Inter, system-ui, sans-serif; }
-.font-bebas { font-family: "Bebas Neue", sans-serif; }
+body { background: var(--bg); color: var(--text); font-family: Inter, -apple-system, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+.font-bebas { font-family: "Bebas Neue", sans-serif; letter-spacing: 0.5px; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { scrollbar-width: none; }
+input[type="text"], input[type="email"], input[type="password"], input:not([type]), textarea, select {
+  background-color: var(--bg);
+  color: var(--text);
+  color-scheme: dark;
+}
+input::placeholder, textarea::placeholder { color: var(--text-dim); }

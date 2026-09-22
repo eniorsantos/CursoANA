@@ -22,7 +22,7 @@ export default async function CourseEditorPage({ params }: { params: { id: strin
       <EmptyState
         title="Curso não encontrado"
         description="Ele pode ter sido excluído ou você não tem permissão sobre ele."
-        action={<Link href="/admin/cursos" className="text-sm text-[#6D4FC7]">← Voltar para cursos</Link>}
+        action={<Link href="/admin/cursos" className="text-sm text-[#D9B8FF]">← Voltar para cursos</Link>}
       />
     );
   }
@@ -30,8 +30,8 @@ export default async function CourseEditorPage({ params }: { params: { id: strin
   return (
     <div>
       <div className="flex items-center gap-3 mb-4">
-        <Link href="/admin/cursos" className="text-sm text-[#6B6862]">← Cursos</Link>
-        <h1 className="text-xl font-bold flex-1">{course.title}</h1>
+        <Link href="/admin/cursos" className="text-sm text-[#B3A9C2]">← Cursos</Link>
+        <h1 className="font-bebas text-3xl tracking-wide flex-1">{course.title}</h1>
         <CourseActions course={course} />
       </div>
       <div className="grid gap-6 lg:grid-cols-2">

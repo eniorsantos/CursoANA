@@ -25,12 +25,12 @@ export default function NovoCursoPage() {
   }
   return (
     <div className="max-w-xl">
-      <h1 className="text-xl font-bold mb-4">Novo curso</h1>
-      <form onSubmit={onSubmit} className="space-y-4 bg-white border border-[#E5E3E0] rounded-lg p-5">
-        <div><label className="text-xs text-[#6B6862]">Título</label><input className="w-full border rounded p-2 text-sm" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} /></div>
-        <div><label className="text-xs text-[#6B6862]">Descrição</label><textarea className="w-full border rounded p-2 text-sm" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} /></div>
-        <div><label className="text-xs text-[#6B6862]">Preço (centavos)</label><input className="w-full border rounded p-2 text-sm" value={form.priceCents} onChange={(e) => setForm({ ...form, priceCents: e.target.value })} /></div>
-        <button className="bg-[#6D4FC7] text-white text-sm px-4 py-2 rounded">Criar (nasce DRAFT)</button>
+      <h1 className="font-bebas text-3xl tracking-wide mb-4">Novo curso</h1>
+      <form onSubmit={onSubmit} className="space-y-4 bg-[#2A2340] border border-[#453A5C] rounded-lg p-5">
+        <div><label className="text-xs text-[#B3A9C2]">Título</label><input className="w-full border rounded p-2 text-sm" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} /></div>
+        <div><label className="text-xs text-[#B3A9C2]">Descrição</label><textarea className="w-full border rounded p-2 text-sm" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} /></div>
+        <div><label className="text-xs text-[#B3A9C2]">Preço (centavos)</label><input className="w-full border rounded p-2 text-sm" value={form.priceCents} onChange={(e) => setForm({ ...form, priceCents: e.target.value })} /></div>
+        <button className="bg-[#9B5DE5] text-white text-sm px-4 py-2 rounded">Criar (nasce DRAFT)</button>
       </form>
     </div>
   );

@@ -25,26 +25,26 @@ export default async function CursosAdminPage() {
   return (
     <div>
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-xl font-bold">Cursos</h1>
-        <Link href="/admin/cursos/novo" className="bg-[#6D4FC7] text-white text-sm px-4 py-2 rounded-md">+ Novo curso</Link>
+        <h1 className="font-bebas text-3xl tracking-wide">Cursos</h1>
+        <Link href="/admin/cursos/novo" className="bg-[#9B5DE5] text-white text-sm px-4 py-2 rounded-md">+ Novo curso</Link>
       </div>
       {!courses || courses.length === 0 ? (
         <EmptyState
           title="Nenhum curso criado ainda"
           description="Comece criando seu primeiro curso para a plataforma."
-          action={<Link href="/admin/cursos/novo" className="bg-[#6D4FC7] text-white text-sm px-4 py-2 rounded-md">Criar primeiro curso</Link>}
+          action={<Link href="/admin/cursos/novo" className="bg-[#9B5DE5] text-white text-sm px-4 py-2 rounded-md">Criar primeiro curso</Link>}
         />
       ) : (
-        <table className="w-full text-sm border border-[#E5E3E0] rounded-lg overflow-hidden bg-white">
-          <thead className="bg-[#F2F1EF]">
-            <tr>{["Curso", "Status", "Preço", "Alunos", "Ações"].map((h) => (<th key={h} className="text-left px-4 py-3 font-medium text-[#6B6862]">{h}</th>))}</tr>
+        <table className="w-full text-sm border border-[#453A5C] rounded-lg overflow-hidden bg-[#2A2340]">
+          <thead className="bg-[#352C4D]">
+            <tr>{["Curso", "Status", "Preço", "Alunos", "Ações"].map((h) => (<th key={h} className="text-left px-4 py-3 font-medium text-[#B3A9C2]">{h}</th>))}</tr>
           </thead>
           <tbody>
             {courses.map((c) => (
-              <tr key={c.id} className="border-t border-[#E5E3E0] hover:bg-[#F2F1EF]">
+              <tr key={c.id} className="border-t border-[#453A5C] hover:bg-[#352C4D]">
                 <td className="px-4 py-3">
                   <span className="font-medium">{c.title}</span>
-                  <span className="block text-xs text-[#6B6862]">{c.instructor.name} · {c._count.modules} módulos</span>
+                  <span className="block text-xs text-[#B3A9C2]">{c.instructor.name} · {c._count.modules} módulos</span>
                 </td>
                 <td className="px-4 py-3">{STATUS_LABEL[c.status]}</td>
                 <td className="px-4 py-3">{formatCurrency(c.priceCents)}</td>
